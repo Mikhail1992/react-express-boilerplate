@@ -1,0 +1,20 @@
+{
+  "name": "godel-mastery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client:install": "cd client && npm install",
+    "server:install": "cd server && npm install",
+    "install": "npm run client:install && npm run server:install",
+    "client:start": "npm run client:install && cd client && npm start",
+    "server:start": "npm run server:install && cd server && npm start",
+    "server:start:dev": "npm run server:install && cd server && npm run start:dev",
+    "client:lint": "cd client && npm run lint",
+    "server:lint": "cd server && npm run lint",
+    "lint": "npm run client:lint && npm run server:lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
