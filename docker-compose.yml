@@ -11,10 +11,12 @@ services:
 
   server:
     build:
-      dockerfile: Dockerfile
-      context: "./server"
+      context: .
+      target: server
+    command: npm run start
     depends_on:
       - db
+      - client
     volumes:
       - /app/node_modules
       - ./server:/app
@@ -22,8 +24,8 @@ services:
   client:
     stdin_open: true
     build:
-      dockerfile: Dockerfile
-      context: ./client
+      context: .
+      target: client
     volumes:
       - /app/node_modules
       - ./client:/app
@@ -46,7 +48,7 @@ services:
       - client
     restart: always
     build:
-      dockerfile: Dockerfile
-      context: ./nginx
+      context: .
+      target: nginx
     ports:
       - "3050:80"

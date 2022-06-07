@@ -4,6 +4,8 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { initArticleModel } from "./article/article.model";
 import articlesRouter from "./article/article.routes";
+import path from "path";
+import fs from "fs";
 
 export default class App {
   app: Express;
@@ -29,6 +31,7 @@ export default class App {
   }
 
   useRoutes() {
+    this.app.use("/", express.static(path.join(__dirname, "../public")));
     this.app.use("/articles", articlesRouter);
   }
 
@@ -51,6 +54,7 @@ export default class App {
     this.app.use(cors());
     this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(bodyParser.json());
+    // this.app.use(express.static(path.join(__dirname, "../public")));
 
     await this.checkDBConnection();
     await this.initSchemas();
