@@ -27,3 +27,22 @@
 Some useful links
 https://www.section.io/engineering-education/build-and-dockerize-a-full-stack-react-app-with-nodejs-and-nginx/
 https://www.section.io/engineering-education/docker-push-for-publishing-images-to-docker-hub/
+
+```
+docker build -f Dockerfile.dev -t mdziarkach/js-news-mastery-client .
+docker run -it -p 4002:3000 mdziarkach/js-news-mastery-client
+docker push mdziarkach/js-news-mastery-client:latest
+
+docker build -f Dockerfile.dev -t mdziarkach/js-news-mastery-api .
+docker run -it -p 4003:3000 mdziarkach/js-news-mastery-api
+docker push mdziarkach/js-news-mastery-api:latest
+
+docker system prune --all --force --volumes // clean docker data
+```
+
+```
+docker login
+docker images
+docker tag <hash> <docker-repository-name>
+docker push <docker-repository-name>
+```

@@ -3,20 +3,17 @@ services:
   db:
     container_name: pg_container
     image: postgres
-    restart: always
     env_file:
       - ./server/.env
     ports:
       - "5432:5432"
 
-  server:
+  api:
     build:
-      context: .
-      target: server
-    command: npm run start
+      dockerfile: Dockerfile.dev
+      context: ./server
     depends_on:
       - db
-      - client
     volumes:
       - /app/node_modules
       - ./server:/app
@@ -24,8 +21,8 @@ services:
   client:
     stdin_open: true
     build:
-      context: .
-      target: client
+      dockerfile: Dockerfile.dev
+      context: ./client
     volumes:
       - /app/node_modules
       - ./client:/app
@@ -44,11 +41,11 @@ services:
 
   nginx:
     depends_on:
-      - server
+      - api
       - client
     restart: always
     build:
-      context: .
-      target: nginx
+      dockerfile: Dockerfile.dev
+      context: ./nginx
     ports:
       - "3050:80"
